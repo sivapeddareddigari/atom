@@ -7,7 +7,7 @@
 **The aim is to allow new test projects to re-use these libraries and to focus primarily on developing the test cases and test code itself rather than the typical heavy upfront investment in framework creation.**
 **The aim is to allow new test projects to re-use these libraries and to focus primarily on developing the test cases and test code itself rather than the typical heavy upfront investment in framework creation.**
 
-![](library-documentation/diagrams/library-all.png)
+![](library-documentation/diagrams/library-all.PNG)
 
 
 

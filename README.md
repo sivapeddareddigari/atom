@@ -5,8 +5,9 @@
 **A series of loosely coupled java libraries with code collected from multiple test projects.** 
 
 **The aim is to allow new test projects to re-use these libraries and to focus primarily on developing the test cases and test code itself rather than the typical heavy upfront investment in framework creation.**
+**The aim is to allow new test projects to re-use these libraries and to focus primarily on developing the test cases and test code itself rather than the typical heavy upfront investment in framework creation.**
 
-![ss](library-documentation\diagrams\library-all.png)
+![](library-documentation/diagrams/library-all.png)
 
 
 
@@ -24,7 +25,7 @@
 - jira integration
 
 
-![aa](library-documentation\diagrams\TAFArch.png)
+![](library-documentation/diagrams/TAFArch.png)
 
 
 The links below provide readme guides for each individual library.  
@@ -68,26 +69,3 @@ Selenium/Appimm Demo (test execution using TestNG, NO BDD)- sample_selenium
 Cucumber Selenium/Appium Demo: sample-cucumber-selenium
 
 Cucumber API Demo: sample-cucumber-api
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,0 +1,25 @@
+/bin
+/build
+
+#Gradle
+/.gradle
+ 
+#gradle wrapper
+/gradle
+gradlew
+gradlew.bat
+
+#Eclipse
+/.settings
+.classpath
+.project
+
+#Intellij
+git
+*.iml
+/.idea
+.idea
+
+ 
+#Mac OS
+*.DS_Store

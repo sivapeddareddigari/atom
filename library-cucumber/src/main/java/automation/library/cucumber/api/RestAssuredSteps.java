@@ -17,14 +17,18 @@ import io.restassured.filter.Filter;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static io.restassured.RestAssured.given;
+import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
 /**
@@ -84,12 +88,51 @@ public class RestAssuredSteps {
         RestAssuredHelper.setPort(restContext.getRestData().getRequest(), port);
     }
 
+//    @Given("^a header$")
+//    public void setHeader(Map<String, String> map) {
+//        map.forEach((key, val) -> {
+//            RestAssuredHelper.setHeader(restContext.getRestData().getRequest(), key, val);
+//        });
+//    }
+
     @Given("^a header$")
     public void setHeader(Map<String, String> map) {
         map.forEach((key, val) -> {
-            RestAssuredHelper.setHeader(restContext.getRestData().getRequest(), key, val);
+
+            val = val.trim();
+
+            Pattern pattern = Pattern.compile("<(.*?)>");
+            Matcher matcher = pattern.matcher(val);
+
+            if (matcher.find()) {
+
+                String keyForThreadContextContext = matcher.group(1);
+                try {
+                    String valFromContext = TestContext.getInstance().testdataGet(keyForThreadContextContext.trim()).toString();
+                    val = val.replace("<" + keyForThreadContextContext + ">", valFromContext);
+                    RestAssuredHelper.setHeader(restContext.getRestData
+                            ().getRequest(), key, val);
+                } catch (Exception e) {
+                    assertTrue(false, "'" + keyForThreadContextContext + "' : key not found in ThreadContext");
+                }
+            } else {
+                RestAssuredHelper.setHeader(restContext.getRestData
+                        ().getRequest(), key, val);
+            }
         });
     }
+
+    @Given("^Extract and Save \"(.*)\" from response$")
+    public void extractAndSave(String jsonPath) {
+        JSONObject responseJSON = new JSONObject(restContext.getRestData
+                ().getRespString());
+
+        String value = responseJSON.get(jsonPath).toString();
+        TestContext.getInstance().testdataPut(jsonPath, value);
+    }
+
+
+
 
     @Given("^(form parameters|query parameters|path parameters|parameters)$")
     public void withParams(String type, Map<String, String> map) {

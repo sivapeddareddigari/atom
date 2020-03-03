@@ -1,4 +1,4 @@
-## Sample Cucumber Selenium
+## Sample Selenium
 A sample project using various automation libraries for web and mobile test execution using TestNG.
 
     library-common
@@ -11,7 +11,8 @@ A sample project using various automation libraries for web and mobile test exec
 - Download and save the chromedriver on `<project folder path>\lib\drivers\windows` (if OS is windows)
 
 ### Test Execution
-- Running test using Runner Class (TestNG) - 
+- Running test using Runner Class (TestNG)
+
 ![](documentation/runnerclass.PNG)
 
 - Running test using TestNG XML

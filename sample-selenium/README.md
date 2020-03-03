@@ -7,41 +7,31 @@ A sample project using various automation libraries for web and mobile test exec
 ### Set up
 
 - Clone the repo  (https://github.com/Accenture/atom.git)
-- Import/Open `sample-cucumber-selenium-Allure` project in IDE (gradle refresh to pull the respective dependencies) 
+- Import/Open `sample-selenium` project in IDE (gradle refresh to pull the respective dependencies) 
 - Download and save the chromedriver on `<project folder path>\lib\drivers\windows` (if OS is windows)
 
 ### Test Execution
-- Select `Template -> TestNG` and enter below details as shown in screenshot below.
+- Running test using Runner Class (TestNG) - 
+![](documentation/runnerclass.PNG)
+
+- Running test using TestNG XML
+    - Select `Template -> TestNG` and enter below details as shown in screenshot below.
 
 ##### Intellij configuration - Edit Configurations VM Options
-    Name                    :   testNGCucumber
+    Name                    :   testNG
     Test Kind               :   Suite
-    Suite                   :   src/test/resources/testsuites/browsertests.xml
+    Suite                   :   src/test/resources/browsertests.xml
     VM Options              :   -Dcukes.env=devtest
                                 -Dcukes.techstack=LOCAL_CH
                                 -Dorg.apache.logging.log4j.level=DEBUG
                                 -Dcukes.selenium.defaultFindRetries=1
-                                -DscreenshotOnFailure=true
     Shorten command line    :   classpath file
 
 Note: to run the test in another browser update the run config (LOCAL_IE - Internet Explorer, LOCAL_FF - Firefox etc) and copy the respective driver in drivers folder.
+Include below VM options to download the chromedriver during runtime.  
 
-### Execution Summary Reports
-![](documentation/ExecutionSummary.png)
-##### HTML Reports
-The main output is a rich html report (Allure) with test run statistics, summary and detailed test results with drilldowns, and embedded screenshots.
+    -Dcukes.chromeDriver=80.0.3987.106
+    -Dcukes.webdrivermanager=true
 
-To view the allure report execute `gradlew allureServe`.
-
-![](documentation/allure1.PNG)
-
-![](documentation/allure2.PNG)
-
-![](documentation/allure3.PNG)
-
-##### Run Summary - Text Report
-A supplementary text report (suitable for email) with tabular results.
-
-![](documentation/runSummary.PNG)
 
 Note: For this project libraries code is directly used instead of libraries jar. 

@@ -1,0 +1,15 @@
+[
+		{
+			"seleniumServer":"saucelabs",
+			"browserName":"firefox",
+			"version":"54",
+			"platform":"Windows 10"
+		},
+		{
+			"seleniumServer":"saucelabs",
+			"browserName":"chrome",
+			"version":"48",
+			"platform":"Linux"
+		}
+		
+]

@@ -14,7 +14,9 @@ public class AllureScreenShotPub implements StepLifecycleListener {
     @Override
     public void afterStepUpdate(final StepResult result) {
         if ((result.getStatus() == Status.FAILED) ||  (result.getStatus() == Status.BROKEN)){
+            if(DriverFactory.getInstance().returnDriver() != null){
                 AllureScreenShot.attachScreenShot(DriverFactory.getInstance().getDriver(),"error");
+            }
         }
     }
 }

@@ -122,7 +122,9 @@ public class BaseTest {
     @BeforeMethod
     public void startUp(Method method, Object[] args) {
         Test test = method.getAnnotation(Test.class);
-        Map<String, String> map = (Map<String, String>) args[2];
+		
+		Map<String, String> map = (Map<String, String>) args[args.length - 1];
+		        
         if (!TestContext.getInstance().fwSpecificData().containsKey("fw.cucumberTest"))
             TestContext.getInstance().putFwSpecificData("fw.testDescription", test.description() + " (" + map.get("description") + ")");
         if (Property.getVariable("PROJECT_NAME") != null && !Property.getVariable("PROJECT_NAME").isEmpty())

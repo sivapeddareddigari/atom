@@ -5,7 +5,6 @@
 **A series of loosely coupled java libraries with code collected from multiple test projects.** 
 
 **The aim is to allow new test projects to re-use these libraries and to focus primarily on developing the test cases and test code itself rather than the typical heavy upfront investment in framework creation.**
-**The aim is to allow new test projects to re-use these libraries and to focus primarily on developing the test cases and test code itself rather than the typical heavy upfront investment in framework creation.**
 
 ![](library-documentation/diagrams/library-all.PNG)
 

@@ -29,7 +29,6 @@ public class Hooks implements En {
 //						TestContext.getInstance().putFwSpecificData("fw.screenshotAbsolutePath", absolutePath);
 //					}
 //				}
-
 //				DriverFactory.getInstance().driverManager().updateResults(scenario.isFailed() ? "failed" : "passed");
 //
 //				if (!DriverContext.getInstance().getKeepBrowserOpen())
@@ -44,7 +43,7 @@ public class Hooks implements En {
 			if (scenario.isFailed()){
 				String screenshotOnFailure = Property.getVariable("screenshotOnFailure");
 				if (screenshotOnFailure !=null && Boolean.parseBoolean(screenshotOnFailure)){
-					if(DriverFactory.getInstance().checkDriver() !=null){
+					if(DriverFactory.getInstance().returnDriver() !=null){
 						File file = saveScreenshot(grabScreenshot(DriverFactory.getInstance().getDriver()), getScreenshotPath());
 						String relativePath = "." + File.separator + "Screenshots" + File.separator + file.getName();
 						String absolutePath = file.getAbsolutePath();

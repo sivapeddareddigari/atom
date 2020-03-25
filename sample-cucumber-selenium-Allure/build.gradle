@@ -108,4 +108,23 @@ task cukes(type: Test) {
 
 }
 
+task cucumberTag(type: Test) {
+    testLogging {
+        showStandardStreams = true
+    }
 
+    systemProperty "org.apache.logging.log4j.level", "DEBUG"
+    systemProperty "cukes.selenium.defaultFindRetries", "1"
+    def suite = "$suiteDIR" + 'CmdLineBrowserTestSuite.xml'
+
+    //systemProperty "cukes.driverPath", System.getProperty("cukes.driverPath", 'lib/drivers/')
+    systemProperty "cukes.techstack", System.getProperty("cukes.techstack",'LOCAl_CH')
+    systemProperty "cukes.env", System.getProperty("cukes.env")
+    systemProperty "cucumber.options", "classpath:features --tags " + System.properties.getProperty("cukes.tags")
+
+    useTestNG() {
+        useDefaultListeners = true
+        suites suite
+    }
+    outputs.upToDateWhen { false }
+}

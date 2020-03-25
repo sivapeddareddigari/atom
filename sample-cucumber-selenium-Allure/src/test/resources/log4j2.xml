@@ -9,15 +9,10 @@
             <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
     </appenders>
-
     <loggers>
         <root level="debug">
             <appender-ref ref="Console" level="debug"/>
             <appender-ref ref="MyFile" level="debug"/>
         </root>
-        <loggers name="org.apache" level="WARN"/>
-        <loggers name="httpclient" level="WARN"/>
     </loggers>
-
-
 </configuration>

@@ -36,6 +36,10 @@ public class ChromeDriverManager extends DriverManager {
         for (String variable : props.getStringArray("options." + DriverContext.getInstance().getBrowserName().replaceAll("\\s", ""))) {
             options.addArguments(variable);
         }
+        log.debug("chrome.options="+Property.getVariable("chrome.options"));
+        if (Property.getVariable("chrome.options")!=null){
+            options.addArguments(Property.getVariable("chrome.options"));
+        }
 
         if (DriverContext.getInstance().getBrowserName().contains("kiosk")) {
             options.addArguments("--kiosk");

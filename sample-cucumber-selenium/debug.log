@@ -1,7 +1,0 @@
-[0401/155916.856:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\TIMOFE~1.PIR\AppData\Local\Temp\scoped_dir28272_691555255\Crashpad: The system cannot find the file specified. (0x2)
-[0401/174124.467:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\TIMOFE~1.PIR\AppData\Local\Temp\scoped_dir29184_441124191\Crashpad: The system cannot find the file specified. (0x2)
-[0401/215611.116:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\TIMOFE~1.PIR\AppData\Local\Temp\scoped_dir31020_1482081090\Crashpad: The system cannot find the file specified. (0x2)
-[0401/215652.083:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\TIMOFE~1.PIR\AppData\Local\Temp\scoped_dir29256_1007038365\Crashpad: The system cannot find the file specified. (0x2)
-[0401/215913.252:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\TIMOFE~1.PIR\AppData\Local\Temp\scoped_dir3492_873094505\Crashpad: The system cannot find the file specified. (0x2)
-[0401/220054.150:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\TIMOFE~1.PIR\AppData\Local\Temp\scoped_dir9084_1931115670\Crashpad: The system cannot find the file specified. (0x2)
-[0401/220926.914:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\TIMOFE~1.PIR\AppData\Local\Temp\scoped_dir29388_856525610\Crashpad: The system cannot find the file specified. (0x2)

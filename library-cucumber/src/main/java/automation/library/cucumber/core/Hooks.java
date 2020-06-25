@@ -12,6 +12,7 @@ public class Hooks implements En{
 			String scenarioName = scenario.getName();
 			TestContext.getInstance().putFwSpecificData("fw.testDescription", featureName + "-" + scenarioName);
 			TestContext.getInstance().putFwSpecificData("fw.cucumberTest","true");
+			TestContext.getInstance().resetSoftAssert();
 		});
 
 	}

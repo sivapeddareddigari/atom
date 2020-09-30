@@ -93,24 +93,22 @@ public class RunnerClassSequential extends BaseTest {
 
     /**
      * returns the scenarios
-     * @return
+     * @return list of scenario
      */
     public Object[][] dpScenario() {
         if (testNGCucumberRunner == null) {
             return new Object[0][0];
         }
-        Object[][] x = testNGCucumberRunner.provideScenarios();
 
-        return x;
+        return testNGCucumberRunner.provideScenarios();
     }
 
     /**
      * returns the tech stack json input as json array
-     * @return
+     * @return tech stack
      */
     public JSONArray dpTechStackJSON() {
         log.debug("spinning up parallel execution threads for multi browser testing");
-        JSONArray jsonArr = JsonHelper.getJSONArray(Constants.SELENIUMSTACKSPATH);
-        return jsonArr;
+        return JsonHelper.getJSONArray(Constants.SELENIUMSTACKSPATH);
     }
 }

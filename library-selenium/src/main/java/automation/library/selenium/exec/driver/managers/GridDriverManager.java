@@ -1,6 +1,7 @@
 package automation.library.selenium.exec.driver.managers;
 
 import automation.library.common.Property;
+import automation.library.selenium.exec.Constants;
 import automation.library.selenium.exec.driver.factory.Capabilities;
 import automation.library.selenium.exec.driver.factory.DriverManager;
 import io.appium.java_client.android.AndroidDriver;
@@ -18,22 +19,30 @@ public class GridDriverManager extends DriverManager {
 
 	protected Logger log = LogManager.getLogger(this.getClass().getName());
 
-
+	/**
+	 * create driver for the selenium grid - get the grid URL (cukes.seleniumGrid) from
+	 * system property or environment variable
+	 * or src/test/resources/config/selenium/driverManager.properties
+	 */
 	@Override
 	public void createDriver(){
 		Capabilities cap = new Capabilities();
 		try {
+
+			String url = Property.getVariable("cukes.seleniumGrid");
+			if(url==null) url = Property.getProperty(Constants.SELENIUMDRIVERMANAGER,"cukes.seleniumGrid");
+
 			if (cap.getCap().getCapability("platformName").toString().equalsIgnoreCase("Android")) {
-				driver = new AndroidDriver(new URL(Property.getVariable("cukes.seleniumGrid")), cap.getCap());
+				driver = new AndroidDriver(new URL(url), cap.getCap());
 			}else if (cap.getCap().getCapability("platformName").toString().equalsIgnoreCase("iOS")) {
-				driver = new IOSDriver(new URL(Property.getVariable("cukes.seleniumGrid")), cap.getCap());
+				driver = new IOSDriver(new URL(url), cap.getCap());
 			}else if (cap.getCap().getCapability("platformName").toString().equalsIgnoreCase("Windows")) {
-				driver = new WindowsDriver<WindowsElement>(new URL(Property.getVariable("cukes.seleniumGrid")), cap.getCap());
+				driver = new WindowsDriver<WindowsElement>(new URL(url), cap.getCap());
 			}else {
-				driver = new RemoteWebDriver(new URL(Property.getVariable("cukes.seleniumGrid")), cap.getCap());
+				driver = new RemoteWebDriver(new URL(url), cap.getCap());
 			}
-		} catch (MalformedURLException e) {
-			log.debug("Could not connect to SauceLabs: url invalid");
+		} catch (Exception e) {
+			log.debug("Could not connect to Selenium Grid: " + e.getMessage());
 		}
 	}
 

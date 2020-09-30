@@ -1,0 +1,21 @@
+apply plugin: 'java-library'
+apply plugin: 'java'
+apply from: 'publish.gradle'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+}
+
+configurations.all {
+    // Check for snapshot updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+dependencies {
+    compile group: 'com.accenture.atom', name: 'library-common', version: '0.0.1', changing: true
+    compile group: 'com.accenture.atom', name: 'library-selenium', version: '0.0.1', changing: true
+    compile group: 'io.qameta.allure', name: 'allure-cucumber4-jvm', version: '2.13.0'
+    compile group: 'net.masterthought', name: 'cucumber-reporting', version: '4.11.2'
+}

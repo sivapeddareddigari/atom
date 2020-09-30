@@ -58,15 +58,4 @@ public class BaseSteps implements En {
 	public SoftAssert sa() {
 		return TestContext.getInstance().sa();
 	}
-
-//	protected void addScreenshot() {
-//		try {
-//			Reporter.addScreenCaptureFromPath("." + File.separator + "Screenshots" + File.separator
-//					+ saveScreenshot(grabScreenshot(), Reporter.getScreenshotPath()).getName());
-//		} catch (IOException e) {
-//			Reporter.addStepLog("Warning: could not add screenshot");
-//			log.warn("could not add screenshot", e);
-//		}
-//	}
-
 }

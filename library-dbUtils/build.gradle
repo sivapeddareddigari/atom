@@ -1,6 +1,6 @@
 apply plugin: 'java-library'
-apply plugin: 'maven'
 apply plugin: 'java'
+apply from: 'publish.gradle'
 
 def nexusUser = System.getProperty("nexus.user")
 def nexusPassword = System.getProperty("nexus.password")
@@ -10,14 +10,6 @@ repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
-
-//	maven {
-//		credentials {
-//			username "$nexusUser"
-//			password "$nexusPassword"
-//		}
-//		url "$nexusURL"
-//	}
 }
 
 configurations.all {
@@ -26,37 +18,14 @@ configurations.all {
 }
 
 dependencies {
-	compile group: 'com.acn.ntc', name: 'library-common', version: '0.0.3', changing:true
+	compile group: 'com.accenture.atom', name: 'library-common', version: '0.0.1', changing:true
 	compile group: 'commons-dbutils', name: 'commons-dbutils', version: '1.6'
     compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '6.2.2'
     compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.6.3'
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from tasks.javadoc.destinationDir
-}
-
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
-
-artifacts {
-    archives jar
-    archives javadocJar
-	archives sourcesJar
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "$nexusUrl") {
-                authentication(userName: "$nexusUser", password: "$nexusPassword")
+    compile(group: 'com.google.cloud', name: 'google-cloud-spanner-jdbc', version: '1.12.0')
+            {
+                exclude group: 'org.json', module: 'json'
+                exclude group: 'com.google.guava', module: 'guava-testlib'
+                exclude group: 'com.google.guava', module: 'guava'
             }
-        }
-    }
 }
-
-group = 'com.acn.ntc'
-version = System.getProperty("jar.version")

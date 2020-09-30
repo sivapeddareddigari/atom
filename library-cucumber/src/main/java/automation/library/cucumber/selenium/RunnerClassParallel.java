@@ -9,6 +9,8 @@ import io.cucumber.testng.CucumberFeatureWrapper;
 import io.cucumber.testng.CucumberOptions;
 import io.cucumber.testng.PickleEventWrapper;
 import io.cucumber.testng.TestNGCucumberRunner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apiguardian.api.API;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,6 +35,7 @@ import java.util.Map;
  */
 @API(status = API.Status.STABLE)
 public class RunnerClassParallel extends BaseTest {
+    protected Logger log = LogManager.getLogger(this.getClass().getName());
 
     private TestNGCucumberRunner testNGCucumberRunner;
 
@@ -52,6 +55,7 @@ public class RunnerClassParallel extends BaseTest {
      * Returns two dimensional array of PickleEventWrapper scenarios
      * with their associated CucumberFeatureWrapper feature.
      * and required browser tech stack for the test execution
+     *
      * @return a two dimensional array of scenarios features.
      */
     @DataProvider(parallel = true)
@@ -95,14 +99,12 @@ public class RunnerClassParallel extends BaseTest {
         if (testNGCucumberRunner == null) {
             return new Object[0][0];
         }
-        Object[][] x = testNGCucumberRunner.provideScenarios();
 
-        return x;
+        return testNGCucumberRunner.provideScenarios();
     }
 
     public JSONArray dpTechStackJSON() {
         log.debug("spinning up parallel execution threads for multi browser testing");
-        JSONArray jsonArr = JsonHelper.getJSONArray(Constants.SELENIUMSTACKSPATH);
-        return jsonArr;
+        return JsonHelper.getJSONArray(Constants.SELENIUMSTACKSPATH);
     }
 }

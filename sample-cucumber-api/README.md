@@ -35,7 +35,12 @@ Parallel Execution -
     VM Options              :   -Dcukes.env=devtest
     Shorten command line    :   classpath file
 
+### Test Execution - Command Line
+- From the terminal execute following command
 
+
+    gradle cukes -Dcukes.env=devtest -Dcukes.testsuite=apitests --info
+     
 ### Execution Summary Reports
 ![](documentation/extentReport.PNG)
 ##### HTML Reports
@@ -51,5 +56,3 @@ The main output is a rich html report (ExtentReport 4) with test run statistics,
 A supplementary text report (suitable for email) with tabular results.
 
 ![](documentation/runSummary.PNG)
-
-Note: For this project libraries code is directly used instead of libraries jar. 

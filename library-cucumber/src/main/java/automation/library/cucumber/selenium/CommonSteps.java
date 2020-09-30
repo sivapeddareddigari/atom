@@ -3,19 +3,23 @@ package automation.library.cucumber.selenium;
 import automation.library.common.Property;
 import automation.library.common.TestContext;
 import automation.library.cucumber.core.Constants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Common Step definition class. This has some basic steps defs to launch the open browser, launch rul navigate forward
- * & back and launch mobile application
+ * and back and launch mobile application
  */
 @SuppressWarnings("deprecation")
 public class CommonSteps extends BaseSteps {
+	protected Logger log = LogManager.getLogger(this.getClass().getName());
 
 	public CommonSteps() {
 		When("^the browser is opened$",() -> getDriver().manage().window().maximize());
 
 		When("^the application \"(.*)\"$",(String app) -> {
 			getDriver().manage().window().maximize();
+			log.debug("browser launched");
 			String url = Property.getProperty(Constants.ENVIRONMENTPATH+Property.getVariable("cukes.env")+".properties",app);
 			log.debug("Navigating to url: "+url);
 			getDriver().get(url);
@@ -31,6 +35,7 @@ public class CommonSteps extends BaseSteps {
 
 		When("^the url \"(.*)\"$", (String url) -> {
 			getDriver().manage().window().maximize();
+			log.debug("browser launched");
 			log.debug("Navigating to url: "+url);
 			getDriver().get(url);
 		});

@@ -1,0 +1,27 @@
+/bin
+/build
+/test-output
+/RunReports
+/out
+/logs
+/lib
+/target
+
+logs
+#Gradle
+/.gradle
+.gradle
+
+#Eclipse
+.settings
+/.settings
+.classpath
+.project
+
+#Intellij
+*.iml
+/.idea
+.idea
+
+#Mac OS
+*.DS_Store

@@ -1,0 +1,36 @@
+apply plugin: 'java-library'
+apply plugin: 'maven'
+apply plugin: 'java'
+
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+
+    compile group: 'com.accenture.atom', name: 'library-common', version: '0.0.1', changing: true
+//    compile group: 'com.accenture.atom', name: 'library-selenium', version: '0.0.1', changing: true
+    compile group: 'com.accenture.atom', name: 'library-conversion2jmx', version: '0.0.1', changing: true
+}
+
+task run(type: Test) {
+
+    def suite = "$suiteDIR" + System.getProperty("cukes.testsuite") + '.xml'
+    systemProperty "cukes.techstack", System.getProperty("cukes.techstack")
+    systemProperty "cukes.webdrivermanager", System.getProperty("cukes.webdrivermanager")
+    systemProperty "cukes.chromeDriver", System.getProperty("cukes.chromeDriver")
+    systemProperty "cukes.selenium.defaultFindRetries", System.getProperty("cukes.selenium.defaultFindRetries")
+
+    ignoreFailures = true
+
+    useTestNG() {
+        useDefaultListeners = true
+        suites suite
+    }
+
+    outputs.upToDateWhen { false }
+
+}

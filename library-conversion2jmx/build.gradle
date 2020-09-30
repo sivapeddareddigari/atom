@@ -1,0 +1,26 @@
+apply plugin: 'java-library'
+apply plugin: 'java'
+apply from: 'publish.gradle'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+}
+
+configurations.all {
+	// Check for snapshot updates every build
+	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+dependencies {
+
+    compile group: 'com.accenture.atom', name: 'library-common', version: '0.0.1', changing:true
+    compile group: 'com.accenture.atom', name: 'library-selenium', version: '0.0.1', changing:true
+
+    //library-conversion2jmx
+    compile group: 'net.lightbody.bmp', name: 'browsermob-core', version: '2.1.5'
+    compile group: 'de.sstoehr', name: 'har-reader', version: '2.1.7'
+    compile group: 'org.apache.jmeter', name: 'ApacheJMeter_http', version: '5.2.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.3'
+}

@@ -1,7 +1,7 @@
 ## DbUtils Library
 
 ### 1. Purpose and Contents
-The 'dbUtils' library contains a set of java helper classes that support database operation and can be reused by projetcsa helper classes:
+The 'dbUtils' library contains a set of java helper classes that support database operation and can be reused by projects helper classes:
 
 | Class         | Purpose                                                      |
 | --------------| ------------------------------------------------------------ |

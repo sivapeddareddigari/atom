@@ -46,5 +46,3 @@ To view the allure report execute `gradlew allureServe`.
 A supplementary text report (suitable for email) with tabular results.
 
 ![](documentation/runSummary.PNG)
-
-Note: For this project libraries code is directly used instead of libraries jar. 

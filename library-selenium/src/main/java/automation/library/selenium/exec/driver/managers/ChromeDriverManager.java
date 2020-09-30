@@ -33,13 +33,27 @@ public class ChromeDriverManager extends DriverManager {
         System.setProperty("webdriver.chrome.silentOutput", "true");
         ChromeOptions options = new ChromeOptions();
 
+        // If enableHar2Jmx is true then an extra capability will be added to allow for 'untrusted' certificates.
+        // This is needed for when using a proxy to capture network traffic when recording HAR data.
+        if(Property.getVariable("cukes.enableHar2Jmx") != null && Property.getVariable("cukes.enableHar2Jmx").equalsIgnoreCase("true")) {
+            options.addArguments("--ignore-ssl-errors=yes");
+            options.addArguments("--ignore-certificate-errors");
+        }
+
+
         for (String variable : props.getStringArray("options." + DriverContext.getInstance().getBrowserName().replaceAll("\\s", ""))) {
             options.addArguments(variable);
+        }
+
+        log.debug("chrome.options="+ Property.getVariable("chrome.options"));
+        if (Property.getVariable("chrome.options")!=null){
+            options.addArguments(Property.getVariable("chrome.options"));
         }
 
         if (DriverContext.getInstance().getBrowserName().contains("kiosk")) {
             options.addArguments("--kiosk");
         }
+
         cap.getCap().setCapability(ChromeOptions.CAPABILITY, options);
         driver = new ChromeDriver(cap.getCap());
     }

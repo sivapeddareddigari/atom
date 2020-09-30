@@ -15,7 +15,6 @@ import org.testng.asserts.SoftAssert;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class PageObject {
     protected WebDriverWait wait;
     protected SoftAssert sa = null;
 
-    public PageObject(WebDriver driver) {
+    public PageObject(WebDriver driver){
         this.driver = driver;
         wait = new WebDriverWait(driver, getWaitDuration());
     }
@@ -57,9 +56,11 @@ public class PageObject {
         PageFactory.initElements(getDriver(), obj);
     }
 
-    /*
+    /**
      * Set of common methods for Page Objects which are defined with either
      * standard By locators or PageFactory
+     * @param url
+     * @return
      */
     public PageObject gotoURL(String url) {
         log.debug("navigating to url:" + url);
@@ -83,7 +84,7 @@ public class PageObject {
     public void domLoaded() {
         log.debug("checking that the DOM is loaded");
         final JavascriptExecutor js = (JavascriptExecutor) getDriver();
-        Boolean domReady = js.executeScript("return document.readyState").equals("complete");
+        boolean domReady = js.executeScript("return document.readyState").equals("complete");
 
         if (!domReady) {
             getWait().until(new ExpectedCondition<Boolean>() {
@@ -139,7 +140,6 @@ public class PageObject {
         }
     }
 
-
     /*
      * Further methods for Page Objects when using Standard By Locators (non PageFactory)
      * These utilise an additional Element class that wraps WebElement to provide additional
@@ -149,16 +149,20 @@ public class PageObject {
 
     /**
      * Returns first element occurrence matching the supplied locator if an element exists in DOM
+     * @param by
+     * @return
      */
     public Element $(By by) {
         return findElement(by);
-//        Element el = new Element(driver, by);
-//        return el.scroll();
     }
 
     /**
      * return first element using a locator type (from enum), string locator value and optional tokens to
      * substitute into the locator (this is useful for dynamic locators)
+     * @param type
+     * @param locator
+     * @param variables
+     * @return
      */
     public Element $(Loc type, String locator, Object... variables) {
         Element el = new Element(driver, getLocator(type, locator, variables));
@@ -167,6 +171,9 @@ public class PageObject {
 
     /**
      * Returns first element occurrence matching the supplied locator based on the supplied wait condition
+     * @param exp
+     * @param delay
+     * @return
      */
     public Element $(ExpectedCondition<?> exp, int... delay) {
         Element el = new Element(driver, exp, delay);
@@ -175,6 +182,10 @@ public class PageObject {
 
     /**
      * Finds first nested element within current element matching the supplied locator
+     * @param by
+     * @param sub
+     * @param delay
+     * @return
      */
     public Element $(By by, By sub, int... delay) {
         Element el = new Element(driver, ExpectedConditions.presenceOfNestedElementLocatedBy(by, sub), delay);
@@ -183,10 +194,12 @@ public class PageObject {
 
     /**
      * Returns all element occurrences matching the supplied locator if the elements exist in DOM
+     * @param by
+     * @return
      */
     public List<Element> $$(By by) {
         WebDriverWait wait = new WebDriverWait(getDriver(), getWaitDuration());
-        List<WebElement> els = getWait().until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
+        List<WebElement> els = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
         List<Element> elements = setElements(els);
         if (elements.size() > 0) {
             elements.get(0).scroll();
@@ -194,15 +207,17 @@ public class PageObject {
         return elements;
     }
 
-
-
     /**
      * Returns all elements using a locator type (from enum), string locator value and optional tokens to substitute
      * into the locator (this is useful for dynamic locators)
+     * @param type
+     * @param locator
+     * @param variables
+     * @return
      */
     public List<Element> $$(Loc type, String locator, Object[]... variables) {
         WebDriverWait wait = new WebDriverWait(getDriver(), getWaitDuration());
-        List<WebElement> els = getWait().until(ExpectedConditions.presenceOfAllElementsLocatedBy(getLocator(type, locator, variables)));
+        List<WebElement> els = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getLocator(type, locator, variables)));
         List<Element> elements = setElements(els);
         if (elements.size() > 0) {
             elements.get(0).scroll();
@@ -215,7 +230,7 @@ public class PageObject {
      */
     public List<Element> $$(ExpectedCondition<List<WebElement>> exp, int... delay) {
         WebDriverWait wait = new WebDriverWait(getDriver(), delay.length > 0 ? delay[0] : getWaitDuration());
-        List<WebElement> els = getWait().until(exp);
+        List<WebElement> els = wait.until(exp);
         List<Element> elements = setElements(els);
         if (elements.size() > 0) {
             elements.get(0).scroll();
@@ -225,6 +240,10 @@ public class PageObject {
 
     /**
      * Finds all elements within current element matching the supplied locator
+     * @param by locator
+     * @param sub sublocator
+     * @param delay web driver wait delay
+     * @return list of elements
      */
     public List<Element> $$(By by, By sub, int... delay) {
         WebDriverWait wait = new WebDriverWait(getDriver(), delay.length > 0 ? delay[0] : getWaitDuration());
@@ -247,6 +266,10 @@ public class PageObject {
     /**
      * return first element using a locator type (from enum), string locator value and optional tokens to
      * substitute into the locator (this is useful for dynamic locators)
+     * @param type
+     * @param locator
+     * @param variables
+     * @return
      */
     public Element findElement(Loc type, String locator, Object... variables) {
         Element el = new Element(driver, getLocator(type, locator, variables));
@@ -255,6 +278,9 @@ public class PageObject {
 
     /**
      * Returns first element occurrence matching the supplied locator if an element exists in DOM
+     * @param exp
+     * @param delay
+     * @return
      */
     public Element findElement(ExpectedCondition<?> exp, int... delay) {
         Element el = new Element(driver, exp, delay);
@@ -298,7 +324,7 @@ public class PageObject {
     public List<Element> findElements(Loc type, String locator, Object[]... variables) {
         WebDriverWait wait = new WebDriverWait(getDriver(), getWaitDuration());
         try{
-            List<WebElement> els = getWait().until(ExpectedConditions.presenceOfAllElementsLocatedBy(getLocator(type, locator, variables)));
+            List<WebElement> els = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getLocator(type, locator, variables)));
             List<Element> elements = setElements(els);
             if (elements.size() > 0) {
                 elements.get(0).scroll();
@@ -324,7 +350,6 @@ public class PageObject {
         }catch (Exception e){
             return Collections.emptyList();
         }
-
     }
 
     /**
@@ -356,6 +381,8 @@ public class PageObject {
 
     /**
      * Builds and returns list of nested elements
+     * @param els
+     * @return
      */
     public List<Element> setElements(List<WebElement> els) {
         List<Element> list = new ArrayList<Element>();
@@ -367,19 +394,37 @@ public class PageObject {
 
     /**
      * Checks for element existence
+     * @param by
+     * @param delay
+     * @return
      */
     public boolean exist(By by, int... delay) {
         Element el = new Element(driver, by, delay);
-        Boolean exists = (el.element() == null) ? false : true;
-        return exists;
+        return el.element() != null;
     }
 
     /**
      * is this element displayed or not?
+     * @param by
+     * @return
      */
     public boolean isVisible(By by) {
             return findElement(by).element().isDisplayed();
     }
+
+    /**
+     * is this element displayed or not?
+     * @param by
+     * @return
+     */
+    public boolean isDisplayed(By by) {return findElement(by).element().isDisplayed();}
+
+     /** is thsi element enabled or not?
+     * @param by locator of element
+     * @return true if enabled
+     */
+    public boolean isEnables(By by) { return findElement(by).element().isEnabled();}
+
 
     /**
      * Returns duration for specified waits as defined in "/src/test/resources/config/selenium/runtime.properties" or
@@ -397,11 +442,9 @@ public class PageObject {
         }
         return duration;
     }
-
     /**
      * Switch the focus of future commands for this driver to the window with the given handle.
      * @param parent he name of the window or the handle which can be used to iterate over all open windows
-//     * @return This driver focused on the given window
      */
     public void switchWindow(String parent) {
         log.debug("parent window handle:" + parent);
@@ -419,8 +462,16 @@ public class PageObject {
 
     /**
      * An expectation for checking whether the given frame is available to switch to. <p> If the frame
+     * is available it switches the given driver to the specified frameIndex.
+     * @param frameLocator used to find the frame (index)
+     */
+    public void switchFrame(int frameLocator) {
+        getWait().until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameLocator));
+    }
+
+    /**
+     * An expectation for checking whether the given frame is available to switch to. <p> If the frame
      * is available it switches the given driver to the specified frame.
-     *
      * @param frameLocator used to find the frame (id or name)
      */
     public void switchFrame(String frameLocator) {
@@ -430,7 +481,6 @@ public class PageObject {
     /**
      * An expectation for checking whether the given frame is available to switch to. <p> If the frame
      * is available it switches the given driver to the specified frame.
-     *
      * @param by used to find the frame
      */
     public void switchFrame(By by) {
@@ -440,7 +490,6 @@ public class PageObject {
     /**
      * An expectation for checking whether the given frame is available to switch to. <p> If the frame
      * is available it switches the given driver to the specified webelement.
-     *
      * @param el used to find the frame (webelement)
      */
     public void switchFrame(Element el) {

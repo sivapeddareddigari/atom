@@ -2,7 +2,7 @@
 
 #### 1. Purpose and Contents
 
-The 'cucumber' library builds on the API Library and Selenium Library to enable browser/mobile app/api testing using Cucumber BDD.
+The 'mq' library to allow Java application to interface with RabbitMQ.
 
 The helper classes are split into 3 packages 'core', 'api' and 'selenium'.
 

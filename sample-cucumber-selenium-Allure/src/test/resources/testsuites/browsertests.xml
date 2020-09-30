@@ -4,10 +4,5 @@
         <classes>
          	<class name="runners.BrowserTest1"/>
         </classes>
-    </test>	
-<!--    <test name="browser2">-->
-<!--        <classes>-->
-<!--         	<class name="runners.BrowserTest1"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    </test>
 </suite>

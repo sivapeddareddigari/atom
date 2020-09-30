@@ -5,13 +5,10 @@ import java.awt.image.DataBuffer;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
-
 import javax.imageio.ImageIO;
-
 import automation.library.common.Property;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
-
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
@@ -20,19 +17,15 @@ import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
  */
 
 public class Screenshot {
-
     /**
      * capture displayed area or scrolling screenshot and return a file object.
      * to capture scrolling screenshot property scrollingScreenshot = true has to be set in runtime.properties file
      */
     public static File grabScreenshot(WebDriver driver) {
-
-        String screenshotType = null;
-
-        screenshotType = Property.getProperties(Constants.SELENIUMRUNTIMEPATH).getString("scrollingScreenshot");
+        String screenshotType = Property.getProperties(Constants.SELENIUMRUNTIMEPATH).getString("scrollingScreenshot");
 
         if (screenshotType != null) {
-            return (screenshotType == "true" ? grabScrollingScreenshot(driver) : grabDisplayedAreaScreenShot(driver));
+            return (screenshotType.equals("true") ? grabScrollingScreenshot(driver) : grabDisplayedAreaScreenShot(driver));
         } else {
             return grabDisplayedAreaScreenShot(driver);
         }
@@ -47,8 +40,7 @@ public class Screenshot {
         } catch (InterruptedException | NumberFormatException e) {
             e.printStackTrace();
         }
-        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        return screenshot;
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
     }
 
@@ -137,7 +129,7 @@ public class Screenshot {
 
         int sizefileActual = dafileActual.getSize();
 
-        Boolean matchFlag = true;
+        boolean matchFlag = true;
 
         for (int j = 0; j < sizefileActual; j++) {
             if (dafileActual.getElem(j) != dafileExpected.getElem(j)) {

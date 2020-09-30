@@ -20,6 +20,7 @@ import static org.hamcrest.Matchers.startsWith;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.empty;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -88,6 +89,30 @@ public class RestAssuredHelper {
 
         return request;
     }
+
+    public static RequestSpecification setMultiPart(RequestSpecification request, File file){
+        request.multiPart(file);
+        return request;
+    }
+
+    public static RequestSpecification setMultiPart(RequestSpecification request,String controlName, File file){
+        request.multiPart(controlName, file);
+        return request;
+    }
+    public static RequestSpecification setMultiPart(RequestSpecification request,String controlName, String contentBody){
+        request.multiPart(controlName, contentBody);
+        return request;
+    }
+
+    public static RequestSpecification setMultiPart(RequestSpecification request,String controlName, File file, String mimeType){
+        request.multiPart(controlName, file, mimeType);
+        return request;
+    }
+    public static RequestSpecification setMultiPart(RequestSpecification request,String controlName, String contentBody, String mimeType){
+        request.multiPart(controlName, contentBody, mimeType);
+        return request;
+    }
+
 
     public static RequestSpecification setParamList(RequestSpecification request, String key, List<String> val) {
         return request.param(key, val);
@@ -383,6 +408,7 @@ public class RestAssuredHelper {
             }
         });
         TestContext.getInstance().sa().assertAll();
+
 
     }
 

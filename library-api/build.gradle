@@ -1,23 +1,11 @@
 apply plugin: 'java-library'
-apply plugin: 'maven'
 apply plugin: 'java'
-
-def nexusUser = System.getProperty("nexus.user")
-def nexusPassword = System.getProperty("nexus.password")
-def nexusUrl = System.getProperty("nexus.url")
+apply from: 'publish.gradle'
 
 repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
-
-//	maven {
-//		credentials {
-//			username "$nexusUser"
-//			password "$nexusPassword"
-//		}
-//		url "$nexusURL"
-//	}
 }
 
 configurations.all {
@@ -26,7 +14,8 @@ configurations.all {
 }
 
 dependencies {
-	compile group: 'com.acn.ntc', name: 'library-common', version: '0.0.3', changing:true
+
+	compile group: 'com.accenture.atom', name: 'library-common', version: '0.0.1', changing:true
     compile group: 'io.cucumber', name: 'cucumber-testng', version: '4.7.2'
     compile group: 'io.cucumber', name: 'cucumber-java8', version: '4.7.2'
     compile group: 'io.cucumber', name: 'cucumber-picocontainer', version: '4.7.2'
@@ -35,32 +24,3 @@ dependencies {
 	compile group: 'com.atlassian.oai', name: 'swagger-request-validator-restassured', version: '1.4.2'
 	compile group: 'org.skyscreamer', name: 'jsonassert', version: '1.5.0'
 }
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from tasks.javadoc.destinationDir
-}
-
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
-
-artifacts {
-    archives jar
-    archives javadocJar
-	archives sourcesJar
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "$nexusUrl") {
-                authentication(userName: "$nexusUser", password: "$nexusPassword")
-            }
-        }
-    }
-}
-
-group = 'com.acn.ntc'
-version = System.getProperty("jar.version")

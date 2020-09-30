@@ -55,7 +55,7 @@ public class BaseTest {
     /**
      * return BasePO instance - can be used when running using TestNG
      */
-    public BasePO getPO() {
+    public BasePO getPO(){
         log.debug("obtaining an instance of the base page object");
         if (this.po == null) {
             this.po = new BasePO();
@@ -122,9 +122,9 @@ public class BaseTest {
     @BeforeMethod
     public void startUp(Method method, Object[] args) {
         Test test = method.getAnnotation(Test.class);
-		
-		Map<String, String> map = (Map<String, String>) args[args.length - 1];
-		        
+
+        Map<String, String> map = (Map<String, String>) args[args.length - 1];
+
         if (!TestContext.getInstance().fwSpecificData().containsKey("fw.cucumberTest"))
             TestContext.getInstance().putFwSpecificData("fw.testDescription", test.description() + " (" + map.get("description") + ")");
         if (Property.getVariable("PROJECT_NAME") != null && !Property.getVariable("PROJECT_NAME").isEmpty())
@@ -142,6 +142,25 @@ public class BaseTest {
         if (!TestContext.getInstance().fwSpecificData().containsKey("fw.cucumberTest")) {
             DriverFactory.getInstance().driverManager().updateResults(result.isSuccess() ? "passed" : "failed");
             DriverFactory.getInstance().quit();
+        }
+
+        finaliseSelenium2JmxRecording();
+    }
+
+    private void finaliseSelenium2JmxRecording(){
+        if(Property.getVariable("cukes.enableHar2Jmx") != null && Property.getVariable("cukes.enableHar2Jmx").equalsIgnoreCase("true")) {
+            try {
+                Class<?> har2jmxHelperClass = Class.forName("automation.library.conversion2jmx.selenium" + "." + "Har2JmxBaseTest");
+
+                Method method = har2jmxHelperClass.getMethod("finaliseRecording");
+                Object newInstance = har2jmxHelperClass.getDeclaredConstructor().newInstance();
+                method.invoke(newInstance);
+            } catch (Exception e) {
+                e.printStackTrace();
+                log.error("Unable to find automation.library.conversion2jmx.selenium.Har2JmxBaseTest");
+                log.error("The library-conversion2jmx is needed in order to allow HAR recording");
+                throw new RuntimeException(e);
+            }
         }
     }
 }

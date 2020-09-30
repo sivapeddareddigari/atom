@@ -1,14 +1,9 @@
 package runners;
 
-import automation.library.cucumber.api.RunnerClass;
-import automation.library.cucumber.selenium.RunnerClassParallel;
-import automation.library.reporting.ExtentProperties;
-import automation.library.reporting.Reporter;
+import automation.library.cucumber.api.RunnerClassAPISequential;
 import automation.library.reporting.TextReport;
 import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 
 @CucumberOptions(
         plugin = {"automation.library.reporting.adapter.ExtentCucumberAdapter:"},
@@ -16,7 +11,7 @@ import org.testng.annotations.BeforeTest;
         glue = {"steps", "hooks"}
 )
 
-public class BaseRunner extends RunnerClass {
+public class BaseRunner extends RunnerClassAPISequential {
 
     //TestNG after hook
     @AfterSuite

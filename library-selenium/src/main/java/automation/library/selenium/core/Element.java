@@ -86,6 +86,8 @@ public class Element {
 
     /**
      * searches again for the element using the by
+     * @param retries number of retries
+     * @return Element
      */
     public Element refind(int... retries) {
         log.info("Attempting to refind the element: " + by.toString());
@@ -112,6 +114,8 @@ public class Element {
 
     /**
      * Returns a nested element
+     * @param by locator
+     * @return ELement
      */
     public Element $(By by) {
         return new Element(driver, (WebElement) wait.until(ExpectedConditions.presenceOfNestedElementLocatedBy(this.element, by)), by);
@@ -124,6 +128,8 @@ public class Element {
 
     /**
      * Returns list of nested elements
+     * @param by locator
+     * @return Elements
      */
     public List<Element> $$(By by) {
         List<WebElement> els = (List<WebElement>) wait.until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(this.element, by));
@@ -145,6 +151,8 @@ public class Element {
 
     /**
      * Returns a nested element
+     * @param by locator
+     * @return Element
      */
     public Element findElement(By by) {
         return new Element(driver, (WebElement) wait.until(ExpectedConditions.presenceOfNestedElementLocatedBy(this.element, by)), by);
@@ -157,6 +165,8 @@ public class Element {
 
     /**
      * Returns list of nested elements
+     * @param by locator
+     * @return list of Element
      */
     public List<Element> findElements(By by) {
         List<WebElement> els = (List<WebElement>) wait.until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(this.element, by));
@@ -178,6 +188,8 @@ public class Element {
 
     /**
      * wait for the element to become visible
+     * @param retries number of retries
+     * @return Element
      */
     public Element visible(int... retries) {
         this.element = wait.until(ExpectedConditions.visibilityOf(this.element));

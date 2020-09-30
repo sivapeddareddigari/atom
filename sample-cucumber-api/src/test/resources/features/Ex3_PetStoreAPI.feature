@@ -20,7 +20,7 @@ Feature: Pet Store Rest API
     Given a rest api "PetStore"
     Given a header
       | Content-Type | application/json |
-    And base input data "PetStoreTestData.default"
+    And base input data "<<PetStoreTestData.default>>"
     And a request body "{"id":<petID>,"name":"<petName>"}"
     When the system requests POST "/v2/pet/"
     Then the response code is 200

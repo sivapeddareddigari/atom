@@ -4,6 +4,8 @@
 /RunReports
 /out
 /logs
+/target
+/lib
 
 #Gradle
 /.gradle

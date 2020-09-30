@@ -14,6 +14,7 @@ A sample project using various automation libraries for web and mobile test exec
 - Download and save the chromedriver on `<project folder path>\lib\drivers\windows` (if OS is windows)
 
 ### Test Execution
+#### Using Run Config
 - Select `Template -> TestNG` and enter below details as shown in screenshot below.
 
 ##### Intellij configuration - Edit Configurations VM Options
@@ -28,6 +29,9 @@ A sample project using various automation libraries for web and mobile test exec
     Shorten command line    :   classpath file
 
 Note: to run the test in another browser update the run config (LOCAL_IE - Internet Explorer, LOCAL_FF - Firefox etc) and copy the respective driver in drivers folder.
+
+#### Using Command Line 
+    gradlew cucumberTag -Dcukes.techstack=LOCAL_CH -Dcukes.env=devtest -DscreenshotOnFailure=true -Dcukes.tags=@donothing
 
 ### Execution Summary Reports
 ![](documentation/ExecutionSummary.png)

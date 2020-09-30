@@ -29,6 +29,15 @@ A sample project using various automation libraries for web and mobile test exec
 
 Note: to run the test in another browser update the run config (LOCAL_IE - Internet Explorer, LOCAL_FF - Firefox etc) and copy the respective driver in drivers folder.
 
+##### CLI execution
+for headless chrome
+
+'gradle cukes -Dcukes.env=devtest -Dcukes.techstack=LOCAL_CH -Dorg.apache.logging.log4j.level=DEBUG -Dcukes.selenium.defaultFindRetries=1 -DscreenshotOnFailure=true -Dcukes.testsuite=browsertests -Dchrome.options=--headless'
+
+for non headless
+
+'gradle cukes -Dcukes.env=devtest -Dcukes.techstack=LOCAL_CH -Dorg.apache.logging.log4j.level=DEBUG -Dcukes.selenium.defaultFindRetries=1 -DscreenshotOnFailure=true -Dcukes.testsuite=browsertests'
+
 ### Execution Summary Reports
 ![](documentation/extentReport.PNG)
 ##### HTML Reports

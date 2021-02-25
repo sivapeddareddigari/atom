@@ -1,6 +1,9 @@
-apply plugin: 'java-library'
+/*apply plugin: 'java-library'
 apply plugin: 'maven'
-apply plugin: 'io.qameta.allure'
+apply plugin: 'io.qameta.allure'*/
+
+
+
 
 buildscript {
     repositories {
@@ -10,13 +13,25 @@ buildscript {
     dependencies {
         classpath "io.qameta.allure:allure-gradle:2.8.1"
     }
+
 }
+
+plugins {
+    id "com.epam.healenium.hlm-report" version "1.1.2"
+    id "java-library"
+    id "maven"
+    //id "io.qameta.allure" version "2.13.0"
+
+}
+
+/*
 
 allure {
     version = '2.13.0'
     autoconfigure = false
     aspectjweaver = true
 }
+*/
 
 
 configurations.all {
@@ -28,13 +43,17 @@ repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
+    maven {
+        url  "https://dl.bintray.com/epam/healenium"
+    }
 }
 
 dependencies {
 
     compile group: 'com.accenture.atom', name: 'library-reporting-allure', version: '0.0.1', changing: true
-    compile group: 'com.accenture.atom', name: 'library-cucumber', version: '0.0.1', changing: true
+    compile group: 'com.accenture.atom', name: 'library-cucumber', version: '0.0.1.001', changing: true
     compile group: 'com.accenture.atom', name: 'library-common', version: '0.0.1', changing: true
+
 }
 
 task cukes(type: Test) {
@@ -56,7 +75,9 @@ task cukes(type: Test) {
 
 }
 
+
 task cucumberTag(type: Test) {
+
     testLogging {
         showStandardStreams = true
     }
@@ -74,7 +95,9 @@ task cucumberTag(type: Test) {
         useDefaultListeners = true
         suites suite
     }
+
     outputs.upToDateWhen { false }
 }
+
 
 

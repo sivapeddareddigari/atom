@@ -1,10 +1,7 @@
 package hooks;
 
-import java.io.IOException;
-
-import io.cucumber.core.api.Scenario;
+import automation.library.common.TestContext;
 import io.cucumber.java.After;
-import io.cucumber.java.Before;
 
 public class Hooks {
 
@@ -19,4 +16,9 @@ public class Hooks {
 //    @After(order=40)
 //    public void closeDown2(Scenario scenario) throws InterruptedException {
 //    }
+
+    @After
+    public void runSA(){
+        TestContext.getInstance().sa().assertAll();
+    }
 }

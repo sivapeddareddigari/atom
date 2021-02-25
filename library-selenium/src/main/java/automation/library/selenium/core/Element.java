@@ -43,6 +43,7 @@ public class Element {
         wait = new WebDriverWait(driver, getWaitDuration());
         this.element = e;
         this.by = by;
+
     }
 
     public Element(WebDriver driver, By by, int... delay) {

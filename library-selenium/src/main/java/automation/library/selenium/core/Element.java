@@ -87,6 +87,7 @@ public class Element {
 
     /**
      * searches again for the element using the by
+     *
      * @param retries number of retries
      * @return Element
      */
@@ -115,6 +116,7 @@ public class Element {
 
     /**
      * Returns a nested element
+     *
      * @param by locator
      * @return ELement
      */
@@ -129,6 +131,7 @@ public class Element {
 
     /**
      * Returns list of nested elements
+     *
      * @param by locator
      * @return Elements
      */
@@ -152,6 +155,7 @@ public class Element {
 
     /**
      * Returns a nested element
+     *
      * @param by locator
      * @return Element
      */
@@ -166,6 +170,7 @@ public class Element {
 
     /**
      * Returns list of nested elements
+     *
      * @param by locator
      * @return list of Element
      */
@@ -189,6 +194,7 @@ public class Element {
 
     /**
      * wait for the element to become visible
+     *
      * @param retries number of retries
      * @return Element
      */
@@ -258,25 +264,25 @@ public class Element {
         }
     }
 
-    public Map<String,String> getAttributes(int... retries) {
+    public Map<String, String> getAttributes(int... retries) {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         String script = "var items = {}; " +
-                        "for (index = 0; index < arguments[0].attributes.length; ++index) " +
-                        "{ " +
-                            "items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value " +
-                        "}; " +
-                        "return items;";
+                "for (index = 0; index < arguments[0].attributes.length; ++index) " +
+                "{ " +
+                "items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value " +
+                "}; " +
+                "return items;";
 
-        Map<String,String> list;
+        Map<String, String> list;
 
         try {
-            list = (Map<String,String>)js.executeScript(script, this.element);
+            list = (Map<String, String>) js.executeScript(script, this.element);
             return list;
         } catch (Exception e) {
             if (!(retries.length > 0 && retries[0] == 0)) {
                 this.refind(retries);
-                list = (Map<String,String>)js.executeScript(script, this.element);
+                list = (Map<String, String>) js.executeScript(script, this.element);
                 return list;
             } else {
                 throw e;
@@ -313,8 +319,7 @@ public class Element {
         } catch (Exception e) {
             if (checkSendKeysJS()) {
                 sendKeysJS(val);
-            }
-            else{
+            } else {
                 throw e;
             }
         }
@@ -336,8 +341,7 @@ public class Element {
         } catch (Exception e) {
             if (checkClickJS()) {
                 clickJS();
-            }
-            else{
+            } else {
                 throw e;
             }
         }
@@ -670,6 +674,26 @@ public class Element {
     }
 
     /**
+     * Scrolls to element to avoid issues with element location being unclickable
+     *
+     * @param hAlign defines vertical alignment
+     *               One of start, center, end or nearest. Defaults to start
+     * @param vAlign vertical alignment
+     *               One of start, center, end or nearest. Defaults to start
+     */
+    public Element scroll(String hAlign, String vAlign) {
+
+        if (!(driver instanceof AndroidDriver) && !(driver instanceof IOSDriver)) {
+            try {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: \"smooth\", block: \"" + vAlign + "\", inline: \"" + hAlign + "\"}););", element());
+            } catch (Exception e) {
+                log.warn("scrolling to element failed", e);
+            }
+        }
+        return this;
+    }
+
+    /**
      * Get count of number of table rows
      */
     public int getTableRowCount() {
@@ -780,6 +804,18 @@ public class Element {
             }
         }
         return tabledata;
+
+    }
+
+    public Element getShadowRoot() {
+        JavascriptExecutor js = (JavascriptExecutor) this.driver;
+        try {
+            WebElement tmpEl = (WebElement) js.executeScript("return arguments[0].shadowRoot", this.element);
+            return new Element(this.driver, tmpEl);
+        } catch (Exception e) {
+            log.warn("Getting shadowRoot element failed", e);
+            return null;
+        }
 
     }
 }

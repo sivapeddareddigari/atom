@@ -43,7 +43,6 @@ public class Element {
         wait = new WebDriverWait(driver, getWaitDuration());
         this.element = e;
         this.by = by;
-
     }
 
     public Element(WebDriver driver, By by, int... delay) {
@@ -87,7 +86,6 @@ public class Element {
 
     /**
      * searches again for the element using the by
-     *
      * @param retries number of retries
      * @return Element
      */
@@ -116,7 +114,6 @@ public class Element {
 
     /**
      * Returns a nested element
-     *
      * @param by locator
      * @return ELement
      */
@@ -131,7 +128,6 @@ public class Element {
 
     /**
      * Returns list of nested elements
-     *
      * @param by locator
      * @return Elements
      */
@@ -155,7 +151,6 @@ public class Element {
 
     /**
      * Returns a nested element
-     *
      * @param by locator
      * @return Element
      */
@@ -170,7 +165,6 @@ public class Element {
 
     /**
      * Returns list of nested elements
-     *
      * @param by locator
      * @return list of Element
      */
@@ -194,7 +188,6 @@ public class Element {
 
     /**
      * wait for the element to become visible
-     *
      * @param retries number of retries
      * @return Element
      */

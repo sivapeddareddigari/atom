@@ -550,10 +550,4 @@ public class PageObject {
     public File grabScreenshot() {
         return Screenshot.grabScreenshot(driver);
     }
-
-
-
-
-
-
 }

@@ -86,6 +86,7 @@ public class Element {
 
     /**
      * searches again for the element using the by
+     *
      * @param retries number of retries
      * @return Element
      */
@@ -114,6 +115,7 @@ public class Element {
 
     /**
      * Returns a nested element
+     *
      * @param by locator
      * @return ELement
      */
@@ -128,6 +130,7 @@ public class Element {
 
     /**
      * Returns list of nested elements
+     *
      * @param by locator
      * @return Elements
      */
@@ -151,6 +154,7 @@ public class Element {
 
     /**
      * Returns a nested element
+     *
      * @param by locator
      * @return Element
      */
@@ -165,6 +169,7 @@ public class Element {
 
     /**
      * Returns list of nested elements
+     *
      * @param by locator
      * @return list of Element
      */
@@ -188,6 +193,7 @@ public class Element {
 
     /**
      * wait for the element to become visible
+     *
      * @param retries number of retries
      * @return Element
      */
@@ -260,22 +266,22 @@ public class Element {
     public Map<String, String> getAttributes(int... retries) {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        String script = "var items = {}; " +
-                "for (index = 0; index < arguments[0].attributes.length; ++index) " +
-                "{ " +
-                "items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value " +
-                "}; " +
-                "return items;";
+        StringBuilder script = new StringBuilder()
+                .append("var items = {}; ")
+                .append("for (index = 0; index < arguments[0].attributes.length; ++index) ").append("{ ")
+                .append("items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value ")
+                .append("}; ")
+                .append("return items;");
 
         Map<String, String> list;
 
         try {
-            list = (Map<String, String>) js.executeScript(script, this.element);
+            list = (Map<String, String>) js.executeScript(script.toString(), this.element);
             return list;
         } catch (Exception e) {
             if (!(retries.length > 0 && retries[0] == 0)) {
                 this.refind(retries);
-                list = (Map<String, String>) js.executeScript(script, this.element);
+                list = (Map<String, String>) js.executeScript(script.toString(), this.element);
                 return list;
             } else {
                 throw e;

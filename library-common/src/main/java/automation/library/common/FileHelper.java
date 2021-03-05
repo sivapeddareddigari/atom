@@ -18,7 +18,6 @@ public class FileHelper {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-
         for (File f : files) {
             log.debug("merging: " + f.getName());
             FileInputStream fis;
@@ -31,18 +30,15 @@ public class FileHelper {
                     out.write(aLine);
                     out.newLine();
                 }
-
                 in.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
         try {
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

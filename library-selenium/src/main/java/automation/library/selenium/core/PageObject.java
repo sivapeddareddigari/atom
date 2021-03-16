@@ -31,7 +31,7 @@ public class PageObject {
     protected WebDriverWait wait;
     protected SoftAssert sa = null;
 
-    public PageObject(WebDriver driver){
+    public PageObject(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, getWaitDuration());
     }
@@ -156,6 +156,21 @@ public class PageObject {
         return findElement(by);
     }
 
+    public Element $(String queryString) {
+
+        return findElementSlow(queryString);
+    }
+
+    private Element findElement(String queryString) {
+        return new Element(this.driver, (WebElement) ((JavascriptExecutor) this.driver).executeScript(queryString, new Object[0]));
+    }
+
+    private Element findElementSlow(String queryString) {
+        Element tmpElement = new Element(this.driver, (WebElement) ((JavascriptExecutor) this.driver).executeScript(queryString, new Object[0]));
+        return findElement(tmpElement.by());
+    }
+
+
     /**
      * return first element using a locator type (from enum), string locator value and optional tokens to
      * substitute into the locator (this is useful for dynamic locators)
@@ -240,8 +255,9 @@ public class PageObject {
 
     /**
      * Finds all elements within current element matching the supplied locator
-     * @param by locator
-     * @param sub sublocator
+     *
+     * @param by    locator
+     * @param sub   sublocator
      * @param delay web driver wait delay
      * @return list of elements
      */
@@ -299,9 +315,9 @@ public class PageObject {
      * wait for elements to present, returns all element occurrences matching the supplied locator if the elements exist
      * else empty list
      */
-    public List<Element> findElements(By by,int...delay) {
+    public List<Element> findElements(By by, int... delay) {
         WebDriverWait wait = new WebDriverWait(getDriver(), delay.length > 0 ? delay[0] : getWaitDuration());
-        try{
+        try {
             List<WebElement> els = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
             ExpectedConditions.numberOfElementsToBeMoreThan(by, 2);
             List<Element> elements = setElements(els);
@@ -309,28 +325,29 @@ public class PageObject {
                 elements.get(0).scroll();
             }
             return elements;
-        }catch (Exception e){
+        } catch (Exception e) {
             return Collections.emptyList();
         }
     }
 
     /**
      * Wait for elements to present, Returns all element occurrences matching the supplied locator if the elements exist in DOM
-     * @param type one of the locator type from one of the enum in automation.library.selenium.core.Locator
-     * @param locator locator
+     *
+     * @param type      one of the locator type from one of the enum in automation.library.selenium.core.Locator
+     * @param locator   locator
      * @param variables optional variable if need to be parsed in locator
      * @return all elements occurance matching the locator or empty list
      */
     public List<Element> findElements(Loc type, String locator, Object[]... variables) {
         WebDriverWait wait = new WebDriverWait(getDriver(), getWaitDuration());
-        try{
+        try {
             List<WebElement> els = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getLocator(type, locator, variables)));
             List<Element> elements = setElements(els);
             if (elements.size() > 0) {
                 elements.get(0).scroll();
             }
             return elements;
-        }catch (Exception e){
+        } catch (Exception e) {
             return Collections.emptyList();
         }
     }
@@ -340,14 +357,14 @@ public class PageObject {
      */
     public List<Element> findElements(ExpectedCondition<List<WebElement>> exp, int... delay) {
         WebDriverWait wait = new WebDriverWait(getDriver(), delay.length > 0 ? delay[0] : getWaitDuration());
-        try{
+        try {
             List<WebElement> els = wait.until(exp);
             List<Element> elements = setElements(els);
             if (elements.size() > 0) {
                 elements.get(0).scroll();
             }
             return elements;
-        }catch (Exception e){
+        } catch (Exception e) {
             return Collections.emptyList();
         }
     }
@@ -357,14 +374,14 @@ public class PageObject {
      */
     public List<Element> findElements(By by, By sub, int... delay) {
         WebDriverWait wait = new WebDriverWait(getDriver(), delay.length > 0 ? delay[0] : getWaitDuration());
-        try{
+        try {
             List<WebElement> els = wait.until(ExpectedConditions.presenceOfNestedElementsLocatedBy(by, sub));
             List<Element> elements = setElements(els);
             if (elements.size() > 0) {
                 elements.get(0).scroll();
             }
             return elements;
-        }catch(Exception e){
+        } catch (Exception e) {
             log.error(e.toString());
             return Collections.emptyList();
         }
@@ -381,6 +398,7 @@ public class PageObject {
 
     /**
      * Builds and returns list of nested elements
+     *
      * @param els
      * @return
      */
@@ -394,6 +412,7 @@ public class PageObject {
 
     /**
      * Checks for element existence
+     *
      * @param by
      * @param delay
      * @return
@@ -405,25 +424,33 @@ public class PageObject {
 
     /**
      * is this element displayed or not?
+     *
      * @param by
      * @return
      */
     public boolean isVisible(By by) {
-            return findElement(by).element().isDisplayed();
+        return findElement(by).element().isDisplayed();
     }
 
     /**
      * is this element displayed or not?
+     *
      * @param by
      * @return
      */
-    public boolean isDisplayed(By by) {return findElement(by).element().isDisplayed();}
+    public boolean isDisplayed(By by) {
+        return findElement(by).element().isDisplayed();
+    }
 
-     /** is thsi element enabled or not?
+    /**
+     * is thsi element enabled or not?
+     *
      * @param by locator of element
      * @return true if enabled
      */
-    public boolean isEnables(By by) { return findElement(by).element().isEnabled();}
+    public boolean isEnables(By by) {
+        return findElement(by).element().isEnabled();
+    }
 
 
     /**
@@ -442,8 +469,10 @@ public class PageObject {
         }
         return duration;
     }
+
     /**
      * Switch the focus of future commands for this driver to the window with the given handle.
+     *
      * @param parent he name of the window or the handle which can be used to iterate over all open windows
      */
     public void switchWindow(String parent) {
@@ -463,6 +492,7 @@ public class PageObject {
     /**
      * An expectation for checking whether the given frame is available to switch to. <p> If the frame
      * is available it switches the given driver to the specified frameIndex.
+     *
      * @param frameLocator used to find the frame (index)
      */
     public void switchFrame(int frameLocator) {
@@ -472,6 +502,7 @@ public class PageObject {
     /**
      * An expectation for checking whether the given frame is available to switch to. <p> If the frame
      * is available it switches the given driver to the specified frame.
+     *
      * @param frameLocator used to find the frame (id or name)
      */
     public void switchFrame(String frameLocator) {
@@ -481,6 +512,7 @@ public class PageObject {
     /**
      * An expectation for checking whether the given frame is available to switch to. <p> If the frame
      * is available it switches the given driver to the specified frame.
+     *
      * @param by used to find the frame
      */
     public void switchFrame(By by) {
@@ -490,6 +522,7 @@ public class PageObject {
     /**
      * An expectation for checking whether the given frame is available to switch to. <p> If the frame
      * is available it switches the given driver to the specified webelement.
+     *
      * @param el used to find the frame (webelement)
      */
     public void switchFrame(Element el) {

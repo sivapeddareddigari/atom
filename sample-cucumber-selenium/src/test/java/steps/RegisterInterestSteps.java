@@ -16,7 +16,7 @@ public class RegisterInterestSteps extends BaseSteps {
 public void launchApplication(DataTable table) throws Throwable {
 	Map<String, String> map = table.asMap(String.class, String.class);
 	ri = new RegisterInterest();
-	ri.registerInterest(map);	
+	ri.registerInterest(map);
 }
 
 @Then("^a confirmation message is displayed \"(.*)\"$")

@@ -18,9 +18,10 @@ dependencies {
 
 task cukes(type: Test) {
     println 'in the test'
-    def suite = "$suiteDIR" + System.getProperty("cukes.testsuite") + '.xml'
-    systemProperty "cukes.env", System.getProperty("cukes.env")
-    systemProperty "cukes.techstack", System.getProperty("cukes.techstack")
+   // def suite = "$suiteDIR" + System.getProperty("cukes.testsuite") + '.xml'
+    def suite = "$suiteDIR" + 'browsertests.xml'
+    systemProperty "cukes.env", 'devtest'
+    systemProperty "cukes.techstack", 'LOCAL_CH'
     systemProperty "cukes.webdrivermanager", System.getProperty("cukes.webdrivermanager")
     systemProperty "cukes.tags", System.getProperty("cukes.tags")
     systemProperty "chrome.options", System.getProperty("chrome.options")
@@ -28,6 +29,7 @@ task cukes(type: Test) {
     ignoreFailures = true
 
     useTestNG() {
+        println 'inside UsetestNG the test'
         useDefaultListeners = true
         suites suite
     }

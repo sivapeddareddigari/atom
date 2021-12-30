@@ -20,7 +20,7 @@ dependencies {
 
     //library-conversion2jmx
     compile group: 'net.lightbody.bmp', name: 'browsermob-core', version: '2.1.5'
-    compile group: 'de.sstoehr', name: 'har-reader', version: '2.1.7'
-    compile group: 'org.apache.jmeter', name: 'ApacheJMeter_http', version: '5.2.1'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.3'
+    compile group: 'de.sstoehr', name: 'har-reader', version: '2.1.8'
+    compile group: 'org.apache.jmeter', name: 'ApacheJMeter_http', version: '5.4.3'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.6'
 }

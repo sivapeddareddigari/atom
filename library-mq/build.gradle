@@ -15,6 +15,6 @@ configurations.all {
 
 dependencies {
 	compile group: 'com.accenture.atom', name: 'library-common', version: '0.0.1', changing:true
-	compile group: 'com.rabbitmq', name: 'amqp-client', version: '5.2.0'
+	compile group: 'com.rabbitmq', name: 'amqp-client', version: '5.4.0'
     compile group: 'javax.jms', name: 'javax.jms-api', version: '2.0.1'
 }

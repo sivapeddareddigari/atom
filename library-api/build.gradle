@@ -16,11 +16,11 @@ configurations.all {
 dependencies {
 
 	compile group: 'com.accenture.atom', name: 'library-common', version: '0.0.1', changing:true
-    compile group: 'io.cucumber', name: 'cucumber-testng', version: '4.7.2'
+    compile group: 'io.cucumber', name: 'cucumber-testng', version: '6.5.0'
     compile group: 'io.cucumber', name: 'cucumber-java8', version: '4.7.2'
     compile group: 'io.cucumber', name: 'cucumber-picocontainer', version: '4.7.2'
-	compile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.3'
-	compile group: 'io.rest-assured', name: 'json-schema-validator', version: '3.0.3'
-	compile group: 'com.atlassian.oai', name: 'swagger-request-validator-restassured', version: '1.4.2'
+	compile group: 'io.rest-assured', name: 'rest-assured', version: '4.4.0'
+	compile group: 'io.rest-assured', name: 'json-schema-validator', version: '3.2.0'
+	compile group: 'com.atlassian.oai', name: 'swagger-request-validator-restassured', version: '2.22.0'
 	compile group: 'org.skyscreamer', name: 'jsonassert', version: '1.5.0'
 }

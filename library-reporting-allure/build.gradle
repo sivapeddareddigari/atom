@@ -16,6 +16,6 @@ configurations.all {
 dependencies {
     compile group: 'com.accenture.atom', name: 'library-common', version: '0.0.1', changing: true
     compile group: 'com.accenture.atom', name: 'library-selenium', version: '0.0.1', changing: true
-    compile group: 'io.qameta.allure', name: 'allure-cucumber4-jvm', version: '2.13.0'
-    compile group: 'net.masterthought', name: 'cucumber-reporting', version: '4.11.2'
+    compile group: 'io.qameta.allure', name: 'allure-cucumber4-jvm', version: '2.13.6'
+    compile group: 'net.masterthought', name: 'cucumber-reporting', version: '5.6.1'
 }
